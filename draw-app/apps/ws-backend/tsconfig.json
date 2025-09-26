@@ -1,0 +1,16 @@
+{
+    "extends": "@repo/typescript-config/base.json",
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./dist"
+    }
+}
+// we could have done npm tsc init -y in both the ws and http backend folders in tscconfig.json folder
+//  but it would have been the same code so using the monorepo thing 
+
+// we have the packages in the packages folder inside it is  the tsconfig thing and we need the base.json folder for our use
+// so we just import it from there 
+
+// we need to import @repo/typescript-config/ as a dependency to use in our folder so we will introduce it in the package.json
+// folder as a dependency
+
