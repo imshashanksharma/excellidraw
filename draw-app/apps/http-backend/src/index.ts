@@ -6,10 +6,26 @@ import { JWT_SECRET } from "@repo/backend-common/config";
 import { prismaClient } from "@repo/db/client";
 const app = express();
 
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
     const parsedData = CreateUserSchema.safeParse(req.body);
     if (!parsedData.success) {
-        
+        res.json({
+            message : "Incorrect inputs"
+        })
+        return;
+    }
+    try {
+        await prismaClient.user.create({
+            data: {
+                email: parsedData.data?.username,
+                password: parsedData.data?.password,
+                name: parsedData.data?.name
+            }
+        })
+    } catch (e) {
+        res.status(411).json({
+            message : "User already exists with this username"
+        })
     }
 })
 
